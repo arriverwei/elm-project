@@ -11,7 +11,7 @@
             <div class="back">
                 <div class="text">
                     <i class="iconfont icon-sousuo"></i>
-                    <span>搜索饿了么商家、商品名称ds </span>
+                    <span>搜索饿了么商家、商品名称</span>
                 </div>
             </div>
         </div>

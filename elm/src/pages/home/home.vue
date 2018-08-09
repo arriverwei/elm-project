@@ -11,12 +11,16 @@
             <div class="back">
                 <div class="text">
                     <i class="iconfont icon-sousuo"></i>
-                    <span>搜索饿了么商家、商品名称大苏打实打实独傲神的话送朵花送</span>
+                    <span>搜索饿了么商家、商品名称</span>
+                    <i class="iconfont icon-sousuo"></i>
+                    <span>搜索饿了么商家、商品名称</span>
                 </div>
             </div>
         </div>
         <Swiper :swiper1="swiperlist" :swiper2="swiperlist2"></Swiper>
         <Middle></Middle>
+        <Merchants></Merchants>
+        <Merchants></Merchants>
         <Merchants></Merchants>
         <Store v-for="(item,i) in data" :key="i" :title="item"></Store>
     </page>

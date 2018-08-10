@@ -42,6 +42,8 @@ export default {
         left: 0;
         right: 0;
         border-top: 1px solid rgba(0, 0, 0, .2);
+        z-index: 100;
+        background: white;
     }
     ul{
         height: 49px;

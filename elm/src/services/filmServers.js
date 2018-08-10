@@ -22,7 +22,8 @@ import axios from 'axios'
                         time:item.restaurant.order_lead_time,
                         tag:item.restaurant.support_tags,
                         content:item.restaurant.activities,
-                        img:item.restaurant.image_path
+                        img:item.restaurant.image_path,
+                        id:item.restaurant.id
                     }
                 })
                 resolve(data);
@@ -106,11 +107,23 @@ import axios from 'axios'
             })
         }
 
-        export function aa(){
+        //详情商家信息
+        export function storeDetail(id){
             return new Promise((resolve,reject)=>{
-                axios.get('restapi/booking/v1/cart_client').then(response=>{          
-                    console.log(response)
-                    resolve();
+                axios.get('/shopping/v2/menu?',{
+                    params: {
+                        restaurant_id:id
+                    }
+                })
+                .then(response=>{
+                    let data=response.data.map(item=>{
+                        return{
+                            description:item.description,
+                            foodlist:item.foods,
+                            name:item.name,
+                        }
+                    });  
+                    resolve(data);
                 }).catch(error=>{
                     console.log('失败')
                 })

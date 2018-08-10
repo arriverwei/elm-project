@@ -1,5 +1,5 @@
 <template>
-    <div class="box">
+    <div class="box" @click="getId(title)">
         <div class="img">
             <img :src="title.img | img">
         </div>
@@ -38,7 +38,7 @@
                         <span class="how">{{value.description}}</span>
                     </li>
                 </ul>
-                <div class="num" @click="showlist()">
+                <div class="num" @click.stop="showlist()">
                     <span>{{length}}个活动</span>
                     <i class="iconfont icon-xia"></i>
                 </div>
@@ -50,7 +50,7 @@
 <script>
 export default {
     props:{
-        title:Object
+        title:Object,
     },
     data(){
         return{
@@ -94,6 +94,25 @@ export default {
                 this.type=true;
             }
             
+        },
+        getId(title){
+            // let info = title;
+            // console.log('触发');
+            
+            let id=title.id;
+            let img=title.img;
+            let mouthshow=title.mouthshow;
+            let name=title.name;
+            let rating=title.rating;
+            let content=title.content;
+            let dececription=title.content[0].description;
+            let icon_name=title.content[0].icon_name;
+            let sendfee=title.sendfee;
+            let time=title.time;
+            // let arr={...info};
+            // let arr={'id':title.id,'img':title.img}
+            this.$router.push({path:'/detail',query:{id,img,mouthshow,name,rating,content,sendfee,time,dececription,icon_name}});
+            // this.$center.$emit('getstore', Object.assign({}, info));
         }
     }
 }

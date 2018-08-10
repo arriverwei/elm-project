@@ -1,26 +1,27 @@
 <template>
-<div class="home">
-    <div v-show="show=='finding'" class="show">
-        <Head></Head>
-    </div>
-    <page class="content" :scrollcc="change" ref="pageone" :requestStore="responseStore">
-        <div class="direct">
-            <span>上步工业区</span><i class="iconfont icon-xia"></i>
+
+    <div class="home">
+        <div v-show="show=='finding'" class="show">
+            <Head></Head>
         </div>
-        <div class="find">
-            <div class="back">
-                <div class="text">
-                    <i class="iconfont icon-sousuo"></i>
-                    <span>搜索饿了么商家、商品名称</span>
+        <page class="content" :scrollcc="change" ref="pageone" :requestStore="responseStore" :height="50" :type="home">
+            <div class="direct">
+                <span>上步工业区</span><i class="iconfont icon-xia"></i>
+            </div>
+            <div class="find">
+                <div class="back">
+                    <div class="text">
+                        <i class="iconfont icon-sousuo"></i>
+                        <span>搜索饿了么商家、商品名称</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <Swiper :swiper1="swiperlist" :swiper2="swiperlist2"></Swiper>
-        <Middle></Middle>
-        <Merchants></Merchants>
-        <Store v-for="(item,i) in data" :key="i" :title="item"></Store>
-    </page>
-</div>
+            <Swiper :swiper1="swiperlist" :swiper2="swiperlist2"></Swiper>
+            <Middle></Middle>
+            <Merchants></Merchants>
+            <Store v-for="(item,i) in data" :key="i" :title="item"></Store>
+        </page>
+    </div>
 </template>
 
 <script>
@@ -28,7 +29,7 @@ import Merchants from '@/components/home/index/Merchants'
 import Swiper from '@/components/home/index/Swiper'
 import Middle from '@/components/home/index/Nav'
 import Head from '@/components/common/small/head'
-import {getstore,getSwiper,aa} from '../../services/filmServers'
+import {getstore,getSwiper} from '../../services/filmServers'
 import Store from '@/components/common/small/store'
 export default {
     data(){
@@ -39,6 +40,7 @@ export default {
             judge:true,
             swiperlist:[],
             swiperlist2:[],
+            home:'home'
         }
     },
     components:{
@@ -51,7 +53,7 @@ export default {
     mounted(){
         this.storeUpdata();
         this.bannerUpdata();
-        aa();
+        console.log(this.$route.query)
     },
     methods:{
         change(y){
@@ -85,9 +87,9 @@ export default {
 </script>
 
 <style scoped>
-    .home{
-        overflow: hidden;
-    }
+    /* .home{
+        position: relative;
+    } */
     .show{
         position: relative;
         z-index: 10;

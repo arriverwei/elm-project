@@ -10,11 +10,16 @@
 export default {
     props:{
         scrollcc:Function,
-        requestStore:Function
+        scrollcc2:Function,
+        requestStore:Function,
+        height:Number,
+        height2:Number,
+        type:String,
     },
     data(){
         return{
-            judge:true
+            judge:true,
+            judge2:true
         }
     },
     mounted(){
@@ -25,19 +30,29 @@ export default {
         myScroll.on('beforeScrollStart',()=>{
             myScroll.refresh();
         });
-        
         myScroll.on('scroll', ()=>{
             var top=myScroll.y;
-            if(top<-50 && this.judge){
+            if(top<-this.height && this.judge){
                 this.judge=false;
                 this.scrollcc('finding');
             }
-            else if(top>-50 && !this.judge){
+            else if(top>-this.height && !this.judge){
                 this.judge=true;
                 this.scrollcc('');
             }
-            var disy=myScroll.y-myScroll.maxScrollY;
-            this.requestStore(disy)
+            if(top<-this.height2 && this.judge2){
+                this.judge2=false;
+                this.scrollcc2('cading');
+            }
+            else if(top>-this.height2 && !this.judge2){
+                this.judge2=true;
+                this.scrollcc2('');
+            }
+            if(this.type=='home'){
+                var disy=myScroll.y-myScroll.maxScrollY;
+                this.requestStore(disy)
+            }
+            
         })
     },
     methods:{
@@ -57,4 +72,5 @@ export default {
         bottom: 50px;
         overflow: hidden; 
     }
+    
 </style>

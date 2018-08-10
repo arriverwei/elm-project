@@ -9,6 +9,8 @@ import Discover from '@/pages/discover/discover.vue'
 import List from '@/pages/list/list.vue'
 import Mine from '@/pages/mine/mine.vue'
 import Home from '@/pages/home/home.vue'
+import Supermarket from '@/components/home/kind/supermarket'
+import Detail from '@/components/home/index/detail'
 
 Vue.use(Router)
 
@@ -23,7 +25,7 @@ export default new Router({
       path: '/home',
       alias: '/',
       name: 'home',
-      component: Home
+      component: Home,
     },
     {
       path: '/list',
@@ -34,6 +36,17 @@ export default new Router({
       path: '/mine',
       name: 'mine',
       component: Mine
+    },
+    {
+      path: '/supermarket',
+      name: 'supermarket',
+      component: Supermarket
+    },
+    {
+      path: '/detail',
+      name: 'detail',
+      component: Detail
     }
+    
   ]
 })

@@ -7,6 +7,8 @@ import Page from './components/common/big/page'
 Vue.component('page', Page);
 Vue.config.productionTip = false
 
+Vue.prototype.$center=new Vue();
+
 import filters  from './filters'
 Vue.use(filters);
 new Vue({

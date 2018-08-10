@@ -1,6 +1,6 @@
 <template>
     <div class="page" ref='pageone'>
-        <div class="page-wrap">
+        <div class="page-wrap" >            
             <slot/>
         </div>
     </div>
@@ -10,11 +10,13 @@
 export default {
     props:{
         scrollcc:Function,
-        requestStore:Function
+        requestStore:Function,
+        receivedata:Function
+     
     },
     data(){
         return{
-            judge:true
+            judge:true       
         }
     },
     mounted(){
@@ -24,27 +26,33 @@ export default {
         this.myScroll=myScroll;
         myScroll.on('beforeScrollStart',()=>{
             myScroll.refresh();
-        });
-        
+        });        
         myScroll.on('scroll', ()=>{
             var top=myScroll.y;
             if(top<-50 && this.judge){
                 this.judge=false;
-                this.scrollcc('finding');
+                this.scrollcc('finding');               
             }
             else if(top>-50 && !this.judge){
                 this.judge=true;
                 this.scrollcc('');
-            }
+            }    
+            if(top<-407){
+                this.receivedata(true)
+            }  else if(top>=-407){
+                this.receivedata(false)
+            }              
             var disy=myScroll.y-myScroll.maxScrollY;
             this.requestStore(disy)
-        })
+        });
+        
     },
     methods:{
         fresh(){
             this.myScroll.refresh();
         }
-    }
+    },
+    
 }
 </script>
 
@@ -57,4 +65,5 @@ export default {
         bottom: 50px;
         overflow: hidden; 
     }
+    
 </style>

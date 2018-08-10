@@ -39,6 +39,7 @@ export default {
     background:#f5f5f5;
     margin-right:5px; 
     position: relative;
+    flex: 1;
 }
 .nav-left h3{
     font-size: 16px;

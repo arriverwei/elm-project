@@ -1,9 +1,16 @@
 <template>
-<div class="home">
+<div class="home">   
     <div v-show="show=='finding'" class="show">
         <Head></Head>
     </div>
-    <page class="content" :scrollcc="change" ref="pageone" :requestStore="responseStore">
+    <div v-show="ulshow==true" class="ulshow">
+        <Merlist></Merlist>
+    </div>  
+    <div class="cover" v-show="covershow==true" @click="hidecoverdata()"              > 
+        <Cover></Cover>
+    </div>     
+    <page class="content" :scrollcc="change" ref="pageone" :requestStore="responseStore"
+     :receivedata="receive">
         <div class="direct">
             <span>上步工业区</span><i class="iconfont icon-xia"></i>
         </div>
@@ -16,8 +23,8 @@
             </div>
         </div>
         <Swiper :swiper1="swiperlist" :swiper2="swiperlist2"></Swiper>
-        <Middle></Middle>
-        <Merchants></Merchants>
+        <Middle></Middle>        
+        <Merchants></Merchants>       
         <Store v-for="(item,i) in data" :key="i" :title="item"></Store>
     </page>
 </div>
@@ -30,6 +37,8 @@ import Middle from '@/components/home/index/Nav'
 import Head from '@/components/common/small/head'
 import {getstore,getSwiper,aa} from '../../services/filmServers'
 import Store from '@/components/common/small/store'
+import Merlist from '@/components/common/small/Merlist.vue'
+import Cover from '@/components/common/big/Cover.vue'
 export default {
     data(){
         return{
@@ -39,6 +48,8 @@ export default {
             judge:true,
             swiperlist:[],
             swiperlist2:[],
+            ulshow:'',
+            covershow:false
         }
     },
     components:{
@@ -46,12 +57,21 @@ export default {
        Store,
        Middle,
        Swiper,
-       Merchants
+       Merchants,
+       Merlist,
+       Cover
     },
     mounted(){
         this.storeUpdata();
         this.bannerUpdata();
-        aa();
+        aa();   
+        this.$center.$on('merchantssendcover',(data)=>{           
+            this.covershow=data
+            this.ulshow=this.covershow
+        })    
+        this.$center.$on('merlistcovershow',(data)=>{
+            this.covershow=data.isshow
+        })
     },
     methods:{
         change(y){
@@ -61,7 +81,8 @@ export default {
             if(y<50 && this.judge){
                 this.storeUpdata();
                 this.judge=false;
-            }
+
+            }            
         },
         storeUpdata(){
             getstore(this.storepage).then(result=>{
@@ -79,14 +100,28 @@ export default {
                 this.swiperlist=result.slice(0,10)
                 this.swiperlist2=result.slice(10,12)                                 
             })
+        },
+        receive(i){
+            this.ulshow=i;
+        },
+        hidecoverdata(){
+            this.covershow=false
+            this.$center.$emit('homehide',this.covershow)       
         }
     }
+   
 }
 </script>
 
-<style scoped>
+<style>
+    html,body,#app{
+        width: 100%;
+        height: 100%;
+    }
     .home{
+        width: 100%;
         overflow: hidden;
+        height: 100%;
     }
     .show{
         position: relative;
@@ -139,5 +174,21 @@ export default {
     top:100px;
     left: 0;
     }
-
+    .home .ulshow{
+        width: 100%;
+        position: absolute;
+        top:50px;
+        left: 0;
+        background: #fff;
+        margin-top: -1px;
+        z-index: 10;
+    }
+    .cover{
+        width: 100%;        
+        position: absolute;
+        top:100px;
+        bottom: 0px;
+        z-index: 4;
+    }
+    
 </style>

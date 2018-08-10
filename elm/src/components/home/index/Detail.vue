@@ -3,7 +3,7 @@
     <div v-show="show=='finding'" class="show">
         <Detailone></Detailone>
     </div>
-    <div v-show="show2=='cading'" class="show">
+    <div v-show="show2==true" class="show">
         <Detailtwo :data="data" ref='pagetwo'></Detailtwo>
     </div>
     <page class="detail" :scrollcc="change" :height="230" :scrollcc2="change2" :height2="430">
@@ -103,8 +103,7 @@ export default {
             this.show2=y;
         },
         push(){
-            let a={'d':1,'c':2};
-            this.$router.push({path:'/home',query:{a}})
+            this.$router.push('/home')
         }
     }
 }

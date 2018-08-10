@@ -1,6 +1,6 @@
 <template>
     <div class="page" ref='pageone'>
-        <div class="page-wrap">
+        <div class="page-wrap" >            
             <slot/>
         </div>
     </div>
@@ -29,12 +29,12 @@ export default {
         this.myScroll=myScroll;
         myScroll.on('beforeScrollStart',()=>{
             myScroll.refresh();
-        });
+        });     
         myScroll.on('scroll', ()=>{
             var top=myScroll.y;
             if(top<-this.height && this.judge){
                 this.judge=false;
-                this.scrollcc('finding');
+                this.scrollcc('finding');               
             }
             else if(top>-this.height && !this.judge){
                 this.judge=true;
@@ -42,7 +42,7 @@ export default {
             }
             if(top<-this.height2 && this.judge2){
                 this.judge2=false;
-                this.scrollcc2('cading');
+                this.scrollcc2(true);
             }
             else if(top>-this.height2 && !this.judge2){
                 this.judge2=true;
@@ -54,12 +54,17 @@ export default {
             }
             
         })
+
+            
+        
+
     },
     methods:{
         fresh(){
             this.myScroll.refresh();
         }
-    }
+    },
+    
 }
 </script>
 

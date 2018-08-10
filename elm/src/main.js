@@ -8,6 +8,8 @@ Vue.prototype.$center=new Vue();
 Vue.component('page', Page);
 Vue.config.productionTip = false
 
+Vue.prototype.$center=new Vue();
+
 import filters  from './filters'
 Vue.use(filters);
 new Vue({

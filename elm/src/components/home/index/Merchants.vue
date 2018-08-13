@@ -47,6 +47,7 @@ export default {
            this.isshow=true
            }
           this.$center.$emit('merchantssendcover',this.isshow)
+          this.$center.$emit('movemerchants',400)
        },
        getname(name){
            this.mesname=name;

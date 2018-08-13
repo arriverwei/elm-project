@@ -61,7 +61,8 @@ export default {
             list:[],
             two:[],
             type:false,
-            num:0
+            num:0,
+            titlename:''
         }
     },
     mounted(){
@@ -84,6 +85,10 @@ export default {
         this.list.splice(0,2);
         this.two=[...data];
         this.two.splice(2,this.two.length-2);
+        this.$center.$on('sendname',data=>{
+            this.titlename=data
+        })
+        
     },
     methods:{
         showlist(){
@@ -98,7 +103,8 @@ export default {
         getId(title){
             // let info = title;
             // console.log('触发');
-            
+
+
             let id=title.id;
             let img=title.img;
             let mouthshow=title.mouthshow;
@@ -113,8 +119,10 @@ export default {
             // let arr={'id':title.id,'img':title.img}
             this.$router.push({path:'/detail',query:{id,img,mouthshow,name,rating,content,sendfee,time,dececription,icon_name}});
             // this.$center.$emit('getstore', Object.assign({}, info));
+            
         }
     }
+    
 }
 </script>
 

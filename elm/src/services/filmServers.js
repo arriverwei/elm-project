@@ -2,9 +2,29 @@ import axios from 'axios'
 
 
 
-    export function getstore(offset){
+    export function getstore(offset,name){
+        
+        let url;
+        if(name=='综合排序'){
+            url='restapi/shopping/v3/restaurants?latitude=22.547&longitude=114.085947&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&rank_id=&terminal=h5'
+        }else if(name=='好评优先'){
+            url='restapi/shopping/v3/restaurants?latitude=22.547&longitude=114.085947&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=7&rank_id=&terminal=h5'
+        }
+        else if(name=='销量最高'){
+            url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&rank_id=&terminal=h5'
+        }else if(name=='起送价最低'){
+            url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=1&rank_id=&terminal=h5'
+        }else if(name=='配送最快'){
+            url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=2&rank_id=&terminal=h5'
+        }else if(name=='配送费最低'){
+            url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=9&rank_id=&terminal=h5'
+        }else if(name=='人均从高到低'){
+            url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=10&rank_id=&terminal=h5'
+        }else{
+            url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=11&rank_id=&terminal=h5'
+        }
         return new Promise((resolve, reject)=>{
-            axios.get('restapi/shopping/v3/restaurants?latitude=22.547&longitude=114.085947&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&rank_id=&terminal=h5', {
+            axios.get(url, {
                 params: {
                     offset
                 }

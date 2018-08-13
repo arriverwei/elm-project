@@ -10,20 +10,23 @@
             <span v-for="item in sortinglilist" :key="item.value" @click="ulhide()">
                 {{item.name}}
             </span>
-            <span @click="ulhide()">筛选</span>
+            <span @click="ulhide()">筛选               
+            </span>
         </div> 
  </div>   
 </template>
 
 <script>
-import {getmerchants} from '@/services/filmServers.js'
+import {getmerchants,getstore} from '@/services/filmServers.js'
 export default {   
     data(){
             return{
                 sortinglist:[],
                 sortinglilist:[],
                 mesname:'综合排序',
-                isshow:false                            
+                isshow:false ,
+                data:[]
+                                           
             }
     },
     mounted() {
@@ -32,7 +35,7 @@ export default {
            this.sortinglilist=result.outside_sort_filter
        })
        this.$center.$on('merchantssendcover',(data)=>{           
-         this.isshow=data      
+           this.isshow=data      
        })
        this.$center.$on('homehide',(data)=>{
            this.isshow=data         
@@ -51,15 +54,21 @@ export default {
            }
            this.$center.$emit('merlistcovershow',parmse)                   
        },
-       getname(name){
-           this.mesname=name;
-           this.isshow=false;         
+       getname(name){            
+           this.mesname=name;                    
+           this.data=getstore(8,this.mesname)
+           this.$center.$emit('sendname',this.mesname)
+           this.ulhide()
+           this.showul() 
        },
        ulhide(){
            this.isshow=false;
        }
        
-   }
+   },
+   beforeDestroy() {
+        this.$center.$off('sendname')
+    },
 }
 </script>
 

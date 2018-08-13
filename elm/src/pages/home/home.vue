@@ -22,8 +22,8 @@
                 </div>
             </div>
         <Swiper :swiper1="swiperlist" :swiper2="swiperlist2"></Swiper>
-        <Middle></Middle>        
-        <Merchants></Merchants>       
+        <Middle></Middle>     
+        <Merchants></Merchants>      
         <Store v-for="(item,i) in data" :key="i" :title="item"></Store>
     </page>
 </div>
@@ -50,7 +50,8 @@ export default {
             swiperlist2:[],
             home:'home',
             ulshow:'',
-            covershow:false
+            covershow:false,
+            mername:'综合排序'
         }
     },
     components:{
@@ -62,11 +63,12 @@ export default {
        Merlist,
        Cover
     },
-    mounted(){
-        this.storeUpdata();
-        this.bannerUpdata();
-
+    created(){
         
+    },
+    mounted(){       
+        this.storeUpdata();
+        this.bannerUpdata();       
         this.$center.$on('merchantssendcover',(data)=>{           
             this.covershow=data
             this.ulshow=this.covershow
@@ -74,6 +76,14 @@ export default {
         this.$center.$on('merlistcovershow',(data)=>{
             this.covershow=data.isshow
         })
+        this.$center.$on('sendname',(data)=>{
+            this.ulshow=false           
+            if(this.mername!=data){
+                this.mername=data
+                this.data=[]
+                this.storeUpdata()               
+            }   
+        })                
     },
     methods:{
         change(y){
@@ -83,16 +93,16 @@ export default {
             if(y<50 && this.judge){
                 this.storeUpdata();
                 this.judge=false;
-
             }            
         },
         storeUpdata(){
-            getstore(this.storepage).then(result=>{
+            getstore(this.storepage,this.mername).then(result=>{             
             this.data=[...this.data,...result];
             this.$nextTick(()=>{
                     this.$refs.pageone.fresh();
                     this.storepage+=8;
                     this.judge=true;
+                    this.covershow=false
                 })
             })
         },

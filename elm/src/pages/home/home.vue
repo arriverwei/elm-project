@@ -6,7 +6,7 @@
     <div v-show="ulshow==true" class="ulshow">
         <Merlist></Merlist>
     </div>  
-    <div class="cover" v-show="covershow==true" @click="hidecoverdata()"              > 
+    <div class="cover" v-show="covershow==true" @click="hidecoverdata()"> 
         <Cover></Cover>
     </div>     
         <page class="content" :scrollcc="change" ref="pageone" :requestStore="responseStore" :height="50" :type="home" :height2="407" :scrollcc2="receive">
@@ -62,11 +62,7 @@ export default {
        Merlist,
        Cover
     },
-    mounted(){
-        this.storeUpdata();
-        this.bannerUpdata();
-
-        
+    created(){
         this.$center.$on('merchantssendcover',(data)=>{           
             this.covershow=data
             this.ulshow=this.covershow
@@ -74,6 +70,12 @@ export default {
         this.$center.$on('merlistcovershow',(data)=>{
             this.covershow=data.isshow
         })
+        this.$center.$emit('show2')
+    },
+    mounted(){
+        this.storeUpdata();
+        this.bannerUpdata();
+        
     },
     methods:{
         change(y){

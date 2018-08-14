@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import itm from '@/services/getdetail'
 export default {
     props:{
         title:Object,
@@ -95,24 +96,13 @@ export default {
             }
             
         },
-        getId(title){
-            // let info = title;
-            // console.log('触发');
-            
-            let id=title.id;
-            let img=title.img;
-            let mouthshow=title.mouthshow;
-            let name=title.name;
-            let rating=title.rating;
-            let content=title.content;
-            let dececription=title.content[0].description;
-            let icon_name=title.content[0].icon_name;
-            let sendfee=title.sendfee;
-            let time=title.time;
-            // let arr={...info};
-            // let arr={'id':title.id,'img':title.img}
-            this.$router.push({path:'/detail',query:{id,img,mouthshow,name,rating,content,sendfee,time,dececription,icon_name}});
-            // this.$center.$emit('getstore', Object.assign({}, info));
+        getId(title){         
+            let info=title;
+            let arr2={...info};
+            arr2=JSON.stringify(arr2);
+            itm.setGoodsItem(arr2);
+            this.$center.$emit('vue');
+            this.$router.push('/detail');
         }
     }
 }

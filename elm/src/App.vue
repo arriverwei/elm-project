@@ -1,8 +1,9 @@
 <template>
   <div id="app">
       <router-view/>
-    
-    <Foot></Foot>
+      <div v-show="type=='cc'">
+        <Foot></Foot>
+      </div>
   </div>
 </template>
 
@@ -12,6 +13,24 @@ export default {
   name: 'App',
   components:{
     Foot
+  },
+  data(){
+    return{
+      type:'cc'
+    }
+  },
+  
+  created(){
+    this.type='';
+    this.$center.$on('show2',()=>{
+      this.type='cc';
+    })
+    this.$center.$on('vue',()=>{
+      this.type='';
+    })
+  },
+  mounted(){
+    
   }
 }
 </script>

@@ -15,6 +15,7 @@ export default {
         height:Number,
         height2:Number,
         type:String,
+        disy:Number
     },
     data(){
         return{
@@ -24,7 +25,7 @@ export default {
     },
     mounted(){
         let myScroll = new IScroll(this.$refs.pageone,{
-             probeType: this.scrollcc?3:0
+             probeType: this.scrollcc?3:0,
         });
         this.myScroll=myScroll;
         myScroll.on('beforeScrollStart',()=>{
@@ -54,17 +55,19 @@ export default {
             }
             
         })
-
-            
-        
-
     },
     methods:{
         fresh(){
             this.myScroll.refresh();
         }
     },
-    
+    watch:{
+        disy:  function(newVal){
+                let y=430+newVal;
+                this.myScroll.scrollTo(0, -y, 300);
+                this.myScroll.refresh();
+            }
+    }
 }
 </script>
 

@@ -2,7 +2,7 @@
     <div class="page2" ref='pagetwo'>
         <div class="page-wrap2">
             <ul class="left">
-                <li v-for="(item,i) in data" :key="i">
+                <li v-for="(item,i) in data" :key="i" @click="sendY(i)">
                     <span>{{item.name}}</span>
                 </li>
             </ul>
@@ -28,6 +28,9 @@ export default {
     methods:{
         fresh(){
             this.myScroll2.refresh();
+        },
+        sendY(i){
+            this.$emit('getY',i)
         }
     }
 }

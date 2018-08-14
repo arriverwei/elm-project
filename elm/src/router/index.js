@@ -10,7 +10,7 @@ import List from '@/pages/list/list.vue'
 import Mine from '@/pages/mine/mine.vue'
 import Home from '@/pages/home/home.vue'
 import Supermarket from '@/components/home/kind/supermarket'
-import Detail from '@/components/home/index/detail'
+import Detail from '@/pages/detail/Detail.vue'
 
 Vue.use(Router)
 

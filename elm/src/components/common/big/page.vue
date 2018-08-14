@@ -63,8 +63,9 @@ export default {
               this.scrollcc('finding');                
             })
              this.$center.$on('sendname',(data)=>{
-              myScroll.scrollTo(0,-407) 
-              this.scrollcc('finding');                
+              myScroll.scrollTo(0,0) 
+              this.scrollcc(''); 
+
             })
           
        

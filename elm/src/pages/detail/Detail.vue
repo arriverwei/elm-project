@@ -51,9 +51,9 @@
 
 <script>
 import {storeDetail,getstore} from '@/services/filmServers'
-import Detailone from '@/components/home/index/Detailone'
-import Detailtwo from '@/components/home/index/Detailtwo'
-import List from '@/components/home/index/List'
+import Detailone from '@/components/home/detail/Detailone'
+import Detailtwo from '@/components/home/detail/Detailtwo'
+import List from '@/components/home/detail/List'
 export default {
     components:{
         Detailone,

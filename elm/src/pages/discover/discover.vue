@@ -19,9 +19,10 @@ export default {
     },
     methods:{
 
-        
+
         jumppage(){
            this.$router.push('/home')
+           
         }
     }
 }

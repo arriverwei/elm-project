@@ -18,6 +18,7 @@ export default {
         Search
     },
     methods:{
+        
         jumppage(){
            this.$router.push('/home')
         }

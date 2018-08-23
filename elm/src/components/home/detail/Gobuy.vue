@@ -11,7 +11,7 @@
             <div class="left">
                 <p v-if="showall!=true">未选购商品</p>
                 <div class="span" v-if="showall==true">
-                    <span class="real">￥{{pay}}</span>
+                    <span class="real">￥{{pay-del}}</span>
                     <span class="fal" v-show="showglup==true">￥{{yuan}}</span>
                 </div>
                 <p>另需配送费{{title.sendfee}}元</p>

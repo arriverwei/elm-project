@@ -2,37 +2,57 @@ import axios from 'axios'
 
 
 
-    export function getstore(offset){
-        return new Promise((resolve, reject)=>{
-            axios.get('restapi/shopping/v3/restaurants?latitude=22.547&longitude=114.085947&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&rank_id=&terminal=h5', {
-                params: {
-                    offset
+export function getstore(offset,name){
+        
+    let url;
+    if(name=='综合排序'){
+        url='restapi/shopping/v3/restaurants?latitude=22.547&longitude=114.085947&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&rank_id=&terminal=h5'
+    }else if(name=='好评优先'){
+        url='restapi/shopping/v3/restaurants?latitude=22.547&longitude=114.085947&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=7&rank_id=&terminal=h5'
+    }
+    else if(name=='销量最高'){
+        url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&rank_id=&terminal=h5'
+    }else if(name=='起送价最低'){
+        url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=1&rank_id=&terminal=h5'
+    }else if(name=='配送最快'){
+        url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=2&rank_id=&terminal=h5'
+    }else if(name=='配送费最低'){
+        url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=9&rank_id=&terminal=h5'
+    }else if(name=='人均从高到低'){
+        url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=10&rank_id=&terminal=h5'
+    }else{
+        url='restapi/shopping/v3/restaurants?latitude=22.609725&longitude=114.029113&limit=8&extras[]=activities&extras[]=tags&extra_filters=home&order_by=11&rank_id=&terminal=h5'
+    }
+    return new Promise((resolve, reject)=>{
+        axios.get(url, {
+            params: {
+                offset
+            }
+        })
+        .then(response=>{
+            let data=response.data.items.map(item=>{
+                return{
+                    name:item.restaurant.name,
+                    rating:item.restaurant.rating,
+                    mouthshow:item.restaurant.recent_order_num,
+                    sendprice:item.restaurant.piecewise_agent_fee.rules[0].price,
+                    sendfee:item.restaurant.piecewise_agent_fee.rules[0].fee,
+                    flavors:item.restaurant.flavors[0].name,
+                    distance:item.restaurant.distance,
+                    time:item.restaurant.order_lead_time,
+                    tag:item.restaurant.support_tags,
+                    content:item.restaurant.activities,
+                    img:item.restaurant.image_path,
+                    id:item.restaurant.id
                 }
             })
-            .then(response=>{
-                let data=response.data.items.map(item=>{
-                    return{
-                        name:item.restaurant.name,
-                        rating:item.restaurant.rating,
-                        mouthshow:item.restaurant.recent_order_num,
-                        sendprice:item.restaurant.piecewise_agent_fee.rules[0].price,
-                        sendfee:item.restaurant.piecewise_agent_fee.rules[0].fee,
-                        flavors:item.restaurant.flavors[0].name,
-                        distance:item.restaurant.distance,
-                        time:item.restaurant.order_lead_time,
-                        tag:item.restaurant.support_tags,
-                        content:item.restaurant.activities,
-                        img:item.restaurant.image_path,
-                        id:item.restaurant.id
-                    }
-                })
-                resolve(data);
-            })
-            .catch(error=>{
-                console.log('失败');
-            })
-        })  
-        }
+            resolve(data);
+        })
+        .catch(error=>{
+            console.log('失败');
+        })
+    })  
+    }
 
         export function getSwiper(){
             return new Promise((resolve,reject)=>{

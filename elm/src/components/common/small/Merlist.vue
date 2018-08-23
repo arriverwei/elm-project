@@ -16,14 +16,15 @@
 </template>
 
 <script>
-import {getmerchants} from '@/services/filmServers.js'
+import {getmerchants,getstore} from '@/services/filmServers.js'
 export default {   
     data(){
             return{
                 sortinglist:[],
                 sortinglilist:[],
                 mesname:'综合排序',
-                isshow:false                            
+                isshow:false,
+                data:[]                           
             }
     },
     mounted() {
@@ -51,9 +52,12 @@ export default {
            }
            this.$center.$emit('merlistcovershow',parmse)                   
        },
-       getname(name){
-           this.mesname=name;
-           this.isshow=false;         
+       getname(name){            
+           this.mesname=name;                    
+           this.data=getstore(8,this.mesname)
+           this.$center.$emit('sendname',this.mesname)
+           this.ulhide()
+           this.showul() 
        },
        ulhide(){
            this.isshow=false;

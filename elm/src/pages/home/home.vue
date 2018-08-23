@@ -50,7 +50,8 @@ export default {
             swiperlist2:[],
             home:'home',
             ulshow:'',
-            covershow:false
+            covershow:false,
+            mername:'综合排序'
         }
     },
     components:{
@@ -75,7 +76,21 @@ export default {
     mounted(){
         this.storeUpdata();
         this.bannerUpdata();
-        
+        this.$center.$on('merchantssendcover',(data)=>{           
+            this.covershow=data
+            this.ulshow=this.covershow
+        })    
+        this.$center.$on('merlistcovershow',(data)=>{
+            this.covershow=data.isshow
+        })
+        this.$center.$on('sendname',(data)=>{
+            this.ulshow=false           
+            if(this.mername!=data){
+                this.mername=data
+                this.data=[]
+                this.storeUpdata()               
+            }   
+        })         
     },
     methods:{
         change(y){

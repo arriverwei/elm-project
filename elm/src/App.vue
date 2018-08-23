@@ -30,7 +30,7 @@ export default {
     })
   },
   mounted(){
-    
+    console.log({'cc':3,'c':5})
   }
 }
 </script>

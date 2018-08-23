@@ -62,7 +62,8 @@ export default {
             list:[],
             two:[],
             type:false,
-            num:0
+            num:0,
+            titlename:''
         }
     },
     mounted(){
@@ -85,6 +86,9 @@ export default {
         this.list.splice(0,2);
         this.two=[...data];
         this.two.splice(2,this.two.length-2);
+        this.$center.$on('sendname',data=>{
+            this.titlename=data
+        })
     },
     methods:{
         showlist(){

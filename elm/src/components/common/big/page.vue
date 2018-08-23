@@ -53,8 +53,16 @@ export default {
                 var disy=myScroll.y-myScroll.maxScrollY;
                 this.requestStore(disy)
             }
-            
         })
+        this.$center.$on('movemerchants',(data)=>{
+              myScroll.scrollTo(0,-410) 
+              this.scrollcc('finding');                
+            })
+             this.$center.$on('sendname',(data)=>{
+              myScroll.scrollTo(0,0) 
+              this.scrollcc(''); 
+
+            })
     },
     methods:{
         fresh(){
@@ -66,7 +74,7 @@ export default {
                 let y=430+newVal;
                 this.myScroll.scrollTo(0, -y, 300);
                 this.myScroll.refresh();
-            }
+            }   
     }
 }
 </script>
